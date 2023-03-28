@@ -7,7 +7,7 @@ class PaletteColorRepository(private val paletteColorDao: PaletteColorDao) {
         paletteColorDao.insertPaletteColor(paletteColorEntity)
     }
 
-    fun loaddAllPaletteColors(): List<PaletteColorEntity> {
+    fun loadAllPaletteColors(): List<PaletteColorEntity> {
         return paletteColorDao.loadAllPaletteColors()
     }
 }
