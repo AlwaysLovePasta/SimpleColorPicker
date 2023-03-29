@@ -15,10 +15,11 @@ import kotlin.math.abs
 @Composable
 fun HueRing(
     modifier: Modifier = Modifier,
+    ringSize: Dp,
     ringWidth: Dp
 ) {
     Canvas(
-        modifier = modifier.padding(ringWidth / 2)
+        modifier = modifier.padding(ringWidth / 2).size(ringSize)
     ) {
         for (azimuth in 0 downTo -359) {
             drawArc(
@@ -35,5 +36,5 @@ fun HueRing(
 @Preview
 @Composable
 fun HueRingPreview() {
-    HueRing(Modifier.size(240.dp), ringWidth = 24.dp)
+    HueRing(ringWidth = 24.dp, ringSize = 300.dp)
 }
