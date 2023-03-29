@@ -1,15 +1,16 @@
 package com.bw.simple_color_picker.feature.hue_picker.presentation.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -41,8 +42,6 @@ fun CircularPointer(
         }
     }
 
-    onDegreeChange(360f - CoordinateConvertor.currentDegree)
-
     Box(
         modifier = modifier
             .offset {
@@ -50,16 +49,25 @@ fun CircularPointer(
                 position
             }
             .size(pointerSize)
+            .shadow(8.dp, CircleShape)
             .clip(CircleShape)
-            .background(color)
-            .border(borderSize, Color.White, CircleShape)
+            .background(Color.White)
             .pointerInput(Unit) {
                 detectDragGestures { change, dragAmount ->
                     change.consume()
                     touchPoint += dragAmount
                 }
-            }
-    )
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        onDegreeChange(360f - CoordinateConvertor.currentDegree)
+        Box(
+            Modifier
+                .size(pointerSize - (borderSize * 2))
+                .clip(CircleShape)
+                .background(color)
+        )
+    }
 }
 
 @Preview
