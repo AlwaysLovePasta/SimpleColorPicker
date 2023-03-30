@@ -1,6 +1,7 @@
 package com.bw.simple_color_picker.feature.hue_picker.presentation.composables
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -36,5 +37,12 @@ fun HueRing(
 @Preview
 @Composable
 fun HueRingPreview() {
-    HueRing(ringWidth = 24.dp, ringSize = 300.dp)
+    Box(modifier = Modifier.size(300.dp)) {
+        HueRing(modifier = Modifier.padding(7.dp), ringSize = 300.dp, ringWidth = 18.dp)
+        CircularPointer(
+            ringSize = 300.dp,
+            pointerSize = 32.dp,
+            borderSize = 4.dp
+        ) {}
+    }
 }
