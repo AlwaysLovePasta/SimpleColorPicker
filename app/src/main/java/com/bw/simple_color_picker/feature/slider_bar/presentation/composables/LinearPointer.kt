@@ -79,14 +79,6 @@ fun LinearPointer(
                     .clip(CircleShape)
                     .background(color)
             )
-
-        } else {
-            Box(
-                Modifier
-                    .size(pointerSize)
-                    .clip(CircleShape)
-                    .background(Color.White)
-            )
         }
     }
 

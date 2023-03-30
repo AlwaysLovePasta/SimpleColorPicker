@@ -25,7 +25,7 @@ fun CircularPointer(
     modifier: Modifier = Modifier,
     ringSize: Dp,
     pointerSize: Dp,
-    borderSize: Dp,
+    borderSize: Dp? = null,
     onDegreeChange: (degree: Float) -> Unit
 ) {
     val diameter = with(LocalDensity.current) { ringSize.toPx() }
@@ -61,12 +61,15 @@ fun CircularPointer(
         contentAlignment = Alignment.Center
     ) {
         onDegreeChange(360f - CoordinateConvertor.currentDegree)
-        Box(
-            Modifier
-                .size(pointerSize - (borderSize * 2))
-                .clip(CircleShape)
-                .background(color)
-        )
+
+        if (borderSize != null) {
+            Box(
+                Modifier
+                    .size(pointerSize - (borderSize * 2))
+                    .clip(CircleShape)
+                    .background(color)
+            )
+        }
     }
 }
 
