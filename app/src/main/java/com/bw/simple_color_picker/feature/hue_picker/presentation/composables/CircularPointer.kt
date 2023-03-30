@@ -26,6 +26,7 @@ fun CircularPointer(
     ringSize: Dp,
     pointerSize: Dp,
     borderSize: Dp? = null,
+    elevation: Dp? = null,
     onDegreeChange: (degree: Float) -> Unit
 ) {
     val diameter = with(LocalDensity.current) { ringSize.toPx() }
@@ -49,7 +50,7 @@ fun CircularPointer(
                 position
             }
             .size(pointerSize)
-            .shadow(8.dp, CircleShape)
+            .shadow(elevation ?: 0.dp, CircleShape)
             .clip(CircleShape)
             .background(Color.White)
             .pointerInput(Unit) {
