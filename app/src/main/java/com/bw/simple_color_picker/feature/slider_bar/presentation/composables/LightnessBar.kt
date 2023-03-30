@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,7 +22,7 @@ fun LightnessBar(
     hue: Float,
     saturation: Float
 ) {
-    val colors = remember { mutableStateListOf<Color>() }
+    val colors = mutableListOf<Color>()
     for (s in 0..100) {
         val lightness = s / 100f
         colors.add(Color.hsl(hue, saturation, lightness))

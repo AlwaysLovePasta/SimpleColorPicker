@@ -38,22 +38,8 @@ fun LinearPointer(
     var touchPointX by remember {
         mutableStateOf(if (center) maxPosition / 2 else maxPosition)
     }
-    val color by remember {
-        derivedStateOf {
-            onValueChange(touchPointX / correction / 100f)
-            if (saturation != null) {
-                Color.hsl(hue, saturation, touchPointX / correction / 100f)
-            } else if (lightness != null) {
-                Color.hsl(hue, touchPointX / correction / 100f, lightness)
-            } else {
-                Color.Red
-            }
-        }
-    }
     val position by remember {
-        derivedStateOf {
-            IntOffset(touchPointX.roundToInt(), 0)
-        }
+        derivedStateOf { IntOffset(touchPointX.roundToInt(), 0) }
     }
 
     Box(
@@ -67,7 +53,10 @@ fun LinearPointer(
                 orientation = Orientation.Horizontal,
                 state = rememberDraggableState { delta ->
                     val check = touchPointX + delta
-                    if (check in 0f..maxPosition) touchPointX += delta
+                    if (check in 0f..maxPosition) {
+                        touchPointX += delta
+                        onValueChange(touchPointX / correction / 100f)
+                    }
                 }
             ),
         contentAlignment = Alignment.Center
@@ -77,7 +66,15 @@ fun LinearPointer(
                 Modifier
                     .size(pointerSize - (borderSize * 2))
                     .clip(CircleShape)
-                    .background(color)
+                    .background(
+                        if (saturation != null) {
+                            Color.hsl(hue, saturation, touchPointX / correction / 100f)
+                        } else if (lightness != null) {
+                            Color.hsl(hue, touchPointX / correction / 100f, lightness)
+                        } else {
+                            Color.Red
+                        }
+                    )
             )
         }
     }
@@ -87,7 +84,10 @@ fun LinearPointer(
 @Preview
 @Composable
 fun LinearPointerPreview() {
-    Box(Modifier.width((120 + 12).dp).wrapContentHeight()) {
+    Box(
+        Modifier
+            .width((120 + 12).dp)
+            .wrapContentHeight()) {
         LinearPointer(pointerSize = 12.dp, barLength = 120.dp, hue = 0f) {}
     }
 }
