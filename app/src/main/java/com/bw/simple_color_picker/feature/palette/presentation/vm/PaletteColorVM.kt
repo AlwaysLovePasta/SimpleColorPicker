@@ -1,5 +1,7 @@
 package com.bw.simple_color_picker.feature.palette.presentation.vm
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bw.simple_color_picker.feature.palette.data.PaletteColorRepository
@@ -17,6 +19,7 @@ class PaletteColorVM(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ViewModel() {
 
+    private val _pickedColor = MutableStateFlow(Color.Black)
     private val _paletteColors = MutableStateFlow(mutableListOf<PaletteColorEntity>())
     val paletteColors: StateFlow<List<PaletteColorEntity>>
         get() = _paletteColors.asStateFlow()
@@ -25,9 +28,13 @@ class PaletteColorVM(
         updateCurrentPaletteColors()
     }
 
-    fun addPaletteColor(paletteColor: PaletteColorEntity) {
+    fun updatePickedColor(color: Color) = _pickedColor.update { color }
+
+    fun addPaletteColor() {
         viewModelScope.launch(dispatcher) {
-            repository.insertPaletteColor(paletteColor)
+            repository.insertPaletteColor(
+                PaletteColorEntity(colorArgb = _pickedColor.value.toArgb())
+            )
         }
         updateCurrentPaletteColors()
     }

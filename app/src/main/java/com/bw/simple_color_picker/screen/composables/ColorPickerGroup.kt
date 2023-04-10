@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ColorPickerGroup(
     modifier: Modifier = Modifier,
-    onColorChange: (argb: Int) -> Unit
+    onColorChange: (color: Color) -> Unit
 ) {
     BoxWithConstraints(modifier = modifier) {
         val minWidth = minWidth
@@ -36,7 +36,7 @@ fun ColorPickerGroup(
                 derivedStateOf { Color.hsl(hue, saturation, lightness) }
             }
 
-            onColorChange(color.toArgb())
+            onColorChange(color)
 
             Box {
                 Box(
