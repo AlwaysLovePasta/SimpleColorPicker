@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bw.simple_color_picker.feature.palette.data.PaletteColorRepository
 import com.bw.simple_color_picker.feature.palette.domain.PaletteColorEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,10 +14,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PaletteColorVM(
+@HiltViewModel
+class PaletteColorVM @Inject constructor(
     private val repository: PaletteColorRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _pickedColor = MutableStateFlow(Color.Black)
