@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "paletteColor")
 data class PaletteColorEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 1,
     @ColumnInfo(name = "color_argb") val colorArgb: Int
 )
