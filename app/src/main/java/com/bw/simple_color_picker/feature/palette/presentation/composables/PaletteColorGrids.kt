@@ -33,14 +33,15 @@ fun PaletteColorGrids(
         horizontalArrangement = Arrangement.spacedBy(horizontalPadding)
     ) {
         item {
-            Box(
-                Modifier
-                    .wrapContentSize()
-                    .size(itemSize)
-                    .clip(CircleShape)
-                    .background(Color.White)
-                    .clickable(onClick = onColorAdd)
-            )
+            Box(modifier = Modifier.wrapContentSize()) {
+                AddCircleIcon(
+                    modifier = Modifier
+                        .size(itemSize)
+                        .clickable(onClick = onColorAdd),
+                    width = 3.dp,
+                    color = Color(0xFFD2D2D2)
+                )
+            }
         }
 
         items(items = items()) { paletteColor ->
