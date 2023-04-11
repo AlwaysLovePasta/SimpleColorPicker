@@ -51,7 +51,7 @@ class PaletteColorVMTest {
     fun currentState_AddPaletteColor_IsNotEmpty() = runTest {
         backgroundScope.launch {
             doCallRealMethod().`when`(repository).insertPaletteColor(TEST_PALETTE_COLOR)
-            paletteColorVM.addPaletteColor(TEST_PALETTE_COLOR)
+            paletteColorVM.addPaletteColor()
             paletteColorVM.paletteColors.collect()
             val actual = paletteColorVM.paletteColors.value
             assertEquals(true, actual.isNotEmpty())
@@ -63,11 +63,25 @@ class PaletteColorVMTest {
     fun currentState_AddPaletteColor_HasRightResult() = runTest {
         backgroundScope.launch {
             doCallRealMethod().`when`(repository).insertPaletteColor(TEST_PALETTE_COLOR)
-            paletteColorVM.addPaletteColor(TEST_PALETTE_COLOR)
+            paletteColorVM.updatePickedColor(Color.Black)
+            paletteColorVM.addPaletteColor()
             paletteColorVM.paletteColors.collect()
             val actual = paletteColorVM.paletteColors.value
             assertEquals(listOf(TEST_PALETTE_COLOR), actual)
             verify(repository).insertPaletteColor(TEST_PALETTE_COLOR)
+        }
+    }
+
+    @Test
+    fun currentState_AddThreePaletteColors_SizeEqualsToThree() = runTest {
+        backgroundScope.launch {
+            repeat(3) {
+                paletteColorVM.updatePickedColor(Color.Red)
+                paletteColorVM.addPaletteColor()
+            }
+            paletteColorVM.paletteColors.collect()
+            val actual = paletteColorVM.paletteColors.value
+            assertEquals(3, actual.size)
         }
     }
 }
